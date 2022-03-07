@@ -4,7 +4,10 @@
 Scraping of the website.
 
 ## Requirements: 
-python 3.9 - rest in requirements.txt .
+- python 3.10 
+- Tor Browser installed (https://www.torproject.org/). You also need to validate the paths in the torexe variable and the profile variable.
+- Firefox and geckodriver installed. Add the path for Firefox and geckodriver to the PATH in windows, if they are not there. (https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers).
+- rest in requirements.txt .
 
 ## Remarks:
 - I made this script so that the master branch had always 

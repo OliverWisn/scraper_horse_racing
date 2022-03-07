@@ -1,3 +1,5 @@
 
-selenium ~= 4.1.0       # Compatible release. Same as >= 4.1.0, == 4.1.0 .
-pandas ~= 1.4.0         # Compatible release. Same as >= 1.4.0, == 1.4.0 .
+selenium ~= 4.1.0       	# Compatible release. Same as >= 4.1.0, == 4.1.0 .
+pandas ~= 1.4.0         	# Compatible release. Same as >= 1.4.0, == 1.4.0 .
+requests ~= 2.27.1      	# Compatible release. Same as >= 2.27.1, == 2.27.1 .
+beautifulsoup4 ~= 4.10.0      # Compatible release. Same as >= 4.10.0, == 4.10.0 .

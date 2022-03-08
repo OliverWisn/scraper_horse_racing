@@ -33,8 +33,27 @@ headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0)"+\
 "/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"}
 req = session.get(my_url, headers=headers)
 
-
+# Loads the website code as the Selenium object.
 driver.get(my_url)
 
+# Prepare the blank dictionary to fill in for pandas.
+dictionary_of_races = {}
 
-# driver.quit()
+# Preparation of lists with scraped data.
+list_of_hippodromes = []
+list_of_start_times = []
+list_of_racing_names = []
+list_of_year_groups = []
+list_of_distances = []
+list_of_winnings = []
+list_of_goings = []
+list_of_countries = []
+list_of_horses = []
+list_of_jockeys_trainers = []
+list_of_ages = []
+list_of_weights = []
+list_of_traveled_distances = []
+list_of_each_way_bets = []
+list_of_winners = []
+
+driver.quit()

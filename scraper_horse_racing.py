@@ -6,6 +6,9 @@ import os
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import requests
 from bs4 import BeautifulSoup
 
@@ -56,4 +59,11 @@ list_of_traveled_distances = []
 list_of_each_way_bets = []
 list_of_winners = []
 
-driver.quit()
+# Wait for page to fully render
+try:
+    element = WebDriverWait(driver, 120).until(
+        EC.presence_of_element_located((By.CLASS_NAME, \
+            "boxOverContent__bannerLink")))
+finally:
+
+    driver.quit()

@@ -69,4 +69,11 @@ finally:
     pageSource = driver.page_source
     bsObj = BeautifulSoup(pageSource, "lxml")
 
+    # Determining the number of items to be scraped with the help of 
+    # the BeautifulSoup.
+    hippodromes = bsObj.find_all("div", {"class":\
+    "subTabs subTabs--label"})
+
+    print(len(hippodromes))
+
     driver.quit()

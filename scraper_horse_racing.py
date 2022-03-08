@@ -65,5 +65,8 @@ try:
         EC.presence_of_element_located((By.CLASS_NAME, \
             "boxOverContent__bannerLink")))
 finally:
+    # Loads the website code as the BeautifulSoup object.
+    pageSource = driver.page_source
+    bsObj = BeautifulSoup(pageSource, "lxml")
 
     driver.quit()

@@ -48,10 +48,7 @@ dictionary_of_races = {}
 list_of_hippodromes = []
 list_of_start_times = []
 list_of_racing_names = []
-list_of_year_groups = []
-list_of_distances = []
-list_of_winnings = []
-list_of_goings = []
+list_of_racing_data = []
 list_of_countries = []
 list_of_horses = []
 list_of_jockeys_trainers = []
@@ -123,6 +120,49 @@ finally:
         for i in range(1, (count_iterations-1)):
             list_of_racing_names.append("")
 
+    # Scraping of the additional race data.
+    for ind in range(1, (len(hippodromes)+1)):
+        list_of_racing_data.append("")
+        try:
+            racing_data_1 = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div[2]/span[1]').text
+            string_of_racing_data = (racing_data_1 + "   ")
+        except:
+            racing_data_1 = ""
+            string_of_racing_data = (racing_data_1 + "   ")
+        try:
+            racing_data_2 = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div[2]/span[2]').text
+            string_of_racing_data = string_of_racing_data + (racing_data_2 +\
+             "   ")
+        except:
+            racing_data_2 = ""
+            string_of_racing_data = string_of_racing_data + (racing_data_2 +\
+             "   ")
+        try:
+            racing_data_3 = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div[2]/span[3]').text
+            string_of_racing_data = string_of_racing_data + (racing_data_3 +\
+             "   ")
+            print(string_of_racing_data)
+#            list_of_racing_data.append(string_of_racing_data)
+        except:
+            racing_data_3 = ""
+            string_of_racing_data = string_of_racing_data + (racing_data_3 +\
+             "   ")
+            print(string_of_racing_data)
+#            list_of_racing_data.append(string_of_racing_data)
+        # list_of_racing_names.append(racing_name)
+        # list_of_racing_names.append("")
+        # count_iterations = len(driver.find_elements(By.XPATH ,\
+        #      '//div[@class="container__livetable"]/div[2]/div/section/div['\
+        #      +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        # for i in range(1, (count_iterations-1)):
+        #     list_of_racing_names.append("")
+
 # countries (<span class="flag fl_77" title="France"></span>)
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]  (<div class="container__livetable">)
 # //*[@id="fsbody"]
@@ -141,11 +181,33 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-# racing_names (<span class="event__title--name" title="AUTEUIL: H.de Navailles Hurdle">AUTEUIL: H.de Navailles Hurdle</span>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[1]/div[2]/div/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[1]/div[2]/div/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[1]/div[2]/div/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[1]/div[2]/div/span
+# year_groups (<span>7yo+</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[2]/span[1]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[1]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[1]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[5]/div[3]/div/div/div[2]/span[1]
+
+# distances (<span title="Miles: 2, Furlongs: 7, Yards: 181">2m 7f 181y</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[2]/span[1] see: year_groups
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[2]/span[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[2]
+
+# class (<span>Class: 4</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[6]/div[3]/div/div/div[2]/span[3]
+
+# winnings (<span>Winner: 2566.0 GBP</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[2]/span[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[2]/span[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[3]
+
+# goings (<span>Going: Standard</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[2]/span[4]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[4]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[4]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[5]/div[3]/div/div/div[2]/span[4]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[6]/div[3]/div/div/div[2]/span[5]
 
     # Add lists with the scraped data to the dictionary in the correct 
     # order.
@@ -204,6 +266,9 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[2]
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[2]
 
+# class (<span>Class: 4</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[6]/div[3]/div/div/div[2]/span[3]
+
 # winnings (<span>Winner: 2566.0 GBP</span>)
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[2]/span[3]
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[2]/span[3]
@@ -215,6 +280,7 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[4]
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[4]
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[5]/div[3]/div/div/div[2]/span[4]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[6]/div[3]/div/div/div[2]/span[5]
 
 
 

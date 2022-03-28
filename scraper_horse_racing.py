@@ -81,8 +81,8 @@ finally:
 
     print(len(hippodromes))
 
+    # Scraping of the hippodromes.
     for ind in range(1, (len(hippodromes)+1)):
-        # Scraping of the hippodromes.
         hippodrom = driver.find_element(By.XPATH ,\
              '//div[@class="container__livetable"]/div[2]/div/section/div['\
              +str(ind)+']/div[1]').text
@@ -95,8 +95,8 @@ finally:
         for i in range(1, (count_iterations-1)):
             list_of_hippodromes.append("")
 
+    # Scraping of the selected start times.
     for ind in range(1, (len(hippodromes)+1)):
-        # Scraping of the selected start times.
         list_of_start_times.append("")
         list_of_start_times.append(selected_times[(ind-1)].get_text())
         list_of_start_times.append("")
@@ -109,8 +109,8 @@ finally:
         print(selected_times[(ind-1)].get_text())
         print(count_iterations)
 
+    # Scraping of the racing names.
     for ind in range(1, (len(hippodromes)+1)):
-        # Scraping of the racing names.
         list_of_racing_names.append("")
         racing_name = driver.find_element(By.XPATH ,\
              '//div[@class="container__livetable"]/div[2]/div/section/div['\
@@ -153,8 +153,7 @@ finally:
     dictionary_of_races["Start time"] = list_of_start_times
     dictionary_of_races["Racing name"] = list_of_racing_names
 
-    # Creating of the frame for the data with the help of the pandas 
-    # package.
+    # Creating of the frame for the data.
     df_res = pd.DataFrame(dictionary_of_races)
 
     # Saving of the properly formatted data to the csv file. The date 

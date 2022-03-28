@@ -71,10 +71,13 @@ finally:
     pageSource = driver.page_source
     bsObj = BeautifulSoup(pageSource, "lxml")
 
-    # Determining the number of the hippodromes to be scraped with 
-    # the help of the BeautifulSoup.
+    # Determining the number of the hippodromes.
     hippodromes = bsObj.find_all("div", {"class":\
     "subTabs subTabs--label"})
+
+    # Building the list with the selected times.
+    selected_times = bsObj.find_all("div", {"class":\
+    "subTabs__tab selected"})
 
     print(len(hippodromes))
 
@@ -92,8 +95,33 @@ finally:
         for i in range(1, (count_iterations-1)):
             list_of_hippodromes.append("")
 
-        print(hippodrom)
+    for ind in range(1, (len(hippodromes)+1)):
+        # Scraping of the selected start times.
+        list_of_start_times.append("")
+        list_of_start_times.append(selected_times[(ind-1)].get_text())
+        list_of_start_times.append("")
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(1, (count_iterations-1)):
+            list_of_start_times.append("")
+
+        print(selected_times[(ind-1)].get_text())
         print(count_iterations)
+
+    for ind in range(1, (len(hippodromes)+1)):
+        # Scraping of the racing names.
+        list_of_racing_names.append("")
+        racing_name = driver.find_element(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[1]/div[2]/div/span').text
+        list_of_racing_names.append(racing_name)
+        list_of_racing_names.append("")
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(1, (count_iterations-1)):
+            list_of_racing_names.append("")
 
 # countries (<span class="flag fl_77" title="France"></span>)
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]  (<div class="container__livetable">)
@@ -113,11 +141,17 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-
+# racing_names (<span class="event__title--name" title="AUTEUIL: H.de Navailles Hurdle">AUTEUIL: H.de Navailles Hurdle</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[1]/div[2]/div/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[1]/div[2]/div/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[1]/div[2]/div/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[1]/div[2]/div/span
 
     # Add lists with the scraped data to the dictionary in the correct 
     # order.
-    dictionary_of_races["Hippodromes"] = list_of_hippodromes
+    dictionary_of_races["Hippodrome"] = list_of_hippodromes
+    dictionary_of_races["Start time"] = list_of_start_times
+    dictionary_of_races["Racing name"] = list_of_racing_names
 
     # Creating of the frame for the data with the help of the pandas 
     # package.

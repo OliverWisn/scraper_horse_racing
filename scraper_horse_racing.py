@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import time
 
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
@@ -11,6 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 # Variable with the URL of the website.
 my_url = "https://www.horseracing24.com/"
@@ -69,16 +71,74 @@ finally:
     pageSource = driver.page_source
     bsObj = BeautifulSoup(pageSource, "lxml")
 
-    # Determining the number of items to be scraped with the help of 
-    # the BeautifulSoup.
+    # Determining the number of the hippodromes to be scraped with 
+    # the help of the BeautifulSoup.
     hippodromes = bsObj.find_all("div", {"class":\
     "subTabs subTabs--label"})
 
     print(len(hippodromes))
 
+    for ind in range(1, (len(hippodromes)+1)):
+        # Scraping of the hippodromes.
+        hippodrom = driver.find_element(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[1]').text
+        list_of_hippodromes.append(hippodrom)
+        list_of_hippodromes.append("")
+        list_of_hippodromes.append("")
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(1, (count_iterations-1)):
+            list_of_hippodromes.append("")
+
+        print(hippodrom)
+        print(count_iterations)
+
+# countries (<span class="flag fl_77" title="France"></span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]  (<div class="container__livetable">)
+# //*[@id="fsbody"]
+# //*[@id="live-table"]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section (<section class="event">)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div (<div class="sportName horse-racing">)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[3]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[3]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[3]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[3]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[3]/span
+# ...
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[3]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[3]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
+
+
+
+
+    # Add lists with the scraped data to the dictionary in the correct 
+    # order.
+    dictionary_of_races["Hippodromes"] = list_of_hippodromes
+
+    # Creating of the frame for the data with the help of the pandas 
+    # package.
+    df_res = pd.DataFrame(dictionary_of_races)
+
+    # Saving of the properly formatted data to the csv file. The date 
+    # and the time of the scraping are hidden in the file name.
+    name_of_file = lambda: "horseracing{}.csv".format(time.strftime(\
+        "%Y%m%d-%H.%M.%S"))
+    df_res.to_csv(name_of_file(), encoding="utf-8")
+
+
     driver.quit()
 
+
+
+
 # hippodromes
+
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section   
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[1]
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[1]
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[1]
@@ -125,8 +185,27 @@ finally:
 
 
 
+# Rating
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[6]/div[2]
+# ...
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[2]
+# ...
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[2]
+# ...
 
 # countries (<span class="flag fl_77" title="France"></span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]  (<div class="container__livetable">)
+# //*[@id="fsbody"]
+# //*[@id="live-table"]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section (<section class="event">)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div (<div class="sportName horse-racing">)
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[3]/span
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[3]/span
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[3]/span

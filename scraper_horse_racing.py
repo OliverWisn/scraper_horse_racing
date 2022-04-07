@@ -47,8 +47,7 @@ dictionary_of_races = {}
 # Preparation of lists with scraped data.
 list_of_hippodromes = []
 list_of_start_times = []
-list_of_racing_names = []
-list_of_racing_data = []
+list_of_names_data = []
 list_of_countries = []
 list_of_horses = []
 list_of_jockeys_trainers = []
@@ -86,6 +85,8 @@ finally:
         list_of_hippodromes.append(hippodrom)
         list_of_hippodromes.append("")
         list_of_hippodromes.append("")
+        # Inserting of the empty fields as many as participants in 
+        # the race.
         count_iterations = len(driver.find_elements(By.XPATH ,\
              '//div[@class="container__livetable"]/div[2]/div/section/div['\
              +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
@@ -97,6 +98,8 @@ finally:
         list_of_start_times.append("")
         list_of_start_times.append(selected_times[(ind-1)].get_text())
         list_of_start_times.append("")
+        # Inserting of the empty fields as many as participants in 
+        # the race.
         count_iterations = len(driver.find_elements(By.XPATH ,\
              '//div[@class="container__livetable"]/div[2]/div/section/div['\
              +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
@@ -106,27 +109,15 @@ finally:
         print(selected_times[(ind-1)].get_text())
         print(count_iterations)
 
-    # Scraping of the racing names.
+    # Scraping of the racing names and the additional race data.
     for ind in range(1, (len(hippodromes)+1)):
-        list_of_racing_names.append("")
+        list_of_names_data.append("")
         # Scraping of the racing names.
         racing_name = driver.find_element(By.XPATH ,\
              '//div[@class="container__livetable"]/div[2]/div/section/div['\
              +str(ind)+']/div[3]/div/div/div[1]/div[2]/div/span').text
-        list_of_racing_names.append(racing_name)
+        list_of_names_data.append(racing_name)
         # Scraping of the additional race data.
-        list_of_racing_names.append("")
-        # Inserting of the empty fields as many as participants in 
-        # the race.
-        count_iterations = len(driver.find_elements(By.XPATH ,\
-             '//div[@class="container__livetable"]/div[2]/div/section/div['\
-             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
-        for i in range(1, (count_iterations-1)):
-            list_of_racing_names.append("")
-
-    # Scraping of the additional race data.
-    for ind in range(1, (len(hippodromes)+1)):
-        list_of_racing_data.append("")
         try:
             racing_data_1 = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
@@ -172,14 +163,25 @@ finally:
                 +str(ind)+']/div[3]/div/div/div[2]/span[5]').text
             string_of_racing_data = string_of_racing_data + racing_data_5
             string_of_racing_data.strip()
-            print(string_of_racing_data)
-#            list_of_racing_data.append(string_of_racing_data)
+            list_of_names_data.append(string_of_racing_data)
         except:
             racing_data_5 = ""
             string_of_racing_data = string_of_racing_data + racing_data_5
             string_of_racing_data.strip()
-            print(string_of_racing_data)
-#            list_of_racing_data.append(string_of_racing_data)
+            list_of_names_data.append(string_of_racing_data)
+        # Inserting of the empty fields as many as participants in 
+        # the race.
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(1, (count_iterations-1)):
+            list_of_names_data.append("")
+
+    # Scraping of the additional race data.
+    # for ind in range(1, (len(hippodromes)+1)):
+    #     list_of_racing_data.append("")
+        
+
 
         # list_of_racing_names.append(racing_name)
         # list_of_racing_names.append("")
@@ -239,7 +241,7 @@ finally:
     # order.
     dictionary_of_races["Hippodrome"] = list_of_hippodromes
     dictionary_of_races["Start time"] = list_of_start_times
-    dictionary_of_races["Racing name"] = list_of_racing_names
+    dictionary_of_races["Racing name and data"] = list_of_names_data
 
     # Creating of the frame for the data.
     df_res = pd.DataFrame(dictionary_of_races)

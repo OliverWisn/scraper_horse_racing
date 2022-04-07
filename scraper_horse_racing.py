@@ -109,11 +109,15 @@ finally:
     # Scraping of the racing names.
     for ind in range(1, (len(hippodromes)+1)):
         list_of_racing_names.append("")
+        # Scraping of the racing names.
         racing_name = driver.find_element(By.XPATH ,\
              '//div[@class="container__livetable"]/div[2]/div/section/div['\
              +str(ind)+']/div[3]/div/div/div[1]/div[2]/div/span').text
         list_of_racing_names.append(racing_name)
+        # Scraping of the additional race data.
         list_of_racing_names.append("")
+        # Inserting of the empty fields as many as participants in 
+        # the race.
         count_iterations = len(driver.find_elements(By.XPATH ,\
              '//div[@class="container__livetable"]/div[2]/div/section/div['\
              +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
@@ -158,12 +162,22 @@ finally:
                 +str(ind)+']/div[3]/div/div/div[2]/span[4]').text
             string_of_racing_data = string_of_racing_data + (racing_data_4 +\
              "   ")
-            print(string_of_racing_data)
-#            list_of_racing_data.append(string_of_racing_data)
         except:
             racing_data_4 = ""
             string_of_racing_data = string_of_racing_data + (racing_data_4 +\
              "   ")
+        try:
+            racing_data_5 = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div[2]/span[5]').text
+            string_of_racing_data = string_of_racing_data + racing_data_5
+            string_of_racing_data.strip()
+            print(string_of_racing_data)
+#            list_of_racing_data.append(string_of_racing_data)
+        except:
+            racing_data_5 = ""
+            string_of_racing_data = string_of_racing_data + racing_data_5
+            string_of_racing_data.strip()
             print(string_of_racing_data)
 #            list_of_racing_data.append(string_of_racing_data)
 

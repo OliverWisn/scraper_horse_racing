@@ -132,10 +132,6 @@ finally:
             racing_data_1 = ""
             string_of_racing_data = (racing_data_1 + "   ")
         try:
-            # racing_data_2 = driver.find_element(By.XPATH ,\
-            #     '//div[@class="container__livetable"]/div[2]/div/section/div['\
-            #     +str(ind)+']/div[3]/div/div/div[2]/span[2]').text
-            # distances (<span title="Miles: 2, Furlongs: 7, Yards: 181">2m 7f 181y</span>)
             racing_length = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div[2]/span[2]')
@@ -152,14 +148,25 @@ finally:
                 +str(ind)+']/div[3]/div/div/div[2]/span[3]').text
             string_of_racing_data = string_of_racing_data + (racing_data_3 +\
              "   ")
-            print(string_of_racing_data)
-#            list_of_racing_data.append(string_of_racing_data)
         except:
             racing_data_3 = ""
             string_of_racing_data = string_of_racing_data + (racing_data_3 +\
              "   ")
+        try:
+            racing_data_4 = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div[2]/span[4]').text
+            string_of_racing_data = string_of_racing_data + (racing_data_4 +\
+             "   ")
             print(string_of_racing_data)
 #            list_of_racing_data.append(string_of_racing_data)
+        except:
+            racing_data_4 = ""
+            string_of_racing_data = string_of_racing_data + (racing_data_4 +\
+             "   ")
+            print(string_of_racing_data)
+#            list_of_racing_data.append(string_of_racing_data)
+
         # list_of_racing_names.append(racing_name)
         # list_of_racing_names.append("")
         # count_iterations = len(driver.find_elements(By.XPATH ,\

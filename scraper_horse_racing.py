@@ -132,9 +132,14 @@ finally:
             racing_data_1 = ""
             string_of_racing_data = (racing_data_1 + "   ")
         try:
-            racing_data_2 = driver.find_element(By.XPATH ,\
+            # racing_data_2 = driver.find_element(By.XPATH ,\
+            #     '//div[@class="container__livetable"]/div[2]/div/section/div['\
+            #     +str(ind)+']/div[3]/div/div/div[2]/span[2]').text
+            # distances (<span title="Miles: 2, Furlongs: 7, Yards: 181">2m 7f 181y</span>)
+            racing_length = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
-                +str(ind)+']/div[3]/div/div/div[2]/span[2]').text
+                +str(ind)+']/div[3]/div/div/div[2]/span[2]')
+            racing_data_2=racing_length.get_attribute("title")
             string_of_racing_data = string_of_racing_data + (racing_data_2 +\
              "   ")
         except:

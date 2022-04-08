@@ -61,7 +61,7 @@ list_of_ratings = []
 list_of_countries = []
 list_of_horses = []
 list_of_jockeys_trainers = []
-list_of_ages = []
+list_of_age = []
 list_of_weights = []
 list_of_traveled_distances = []
 list_of_each_way_bets = []
@@ -257,10 +257,29 @@ finally:
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[4]').text
                 list_of_jockeys_trainers.append(jockey_trainer)
-                print(jockey_trainer)
             except:
                 list_of_jockeys_trainers.append("")
+
+    # Scraping of the ages.
+    for ind in range(1, (len(hippodromes)+1)):
+        list_of_age.append("")
+        list_of_age.append("")
+        list_of_age.append("")
+        # Enumeration of the race participants for the iteration.
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(4, (count_iterations+2)):
+            try:
+                age = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[5]').text
+                list_of_age.append(age)
+                print(age)
+            except:
+                list_of_age.append("")
                 print("")
+
 
 
 
@@ -296,16 +315,16 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-# jockeys_trainers (<div class="event__participantTeam">Maxwell M. D./Nicholls P. F.</div>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[4]
+# ages (<div class="event__center event__result--age event__result--grey">10</div>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[5]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[5]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[5]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[5]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[5]
 # ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[4]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[5]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[5]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[5]
 # ...
 
 
@@ -314,10 +333,11 @@ finally:
     dictionary_of_races["Hippodrome"] = list_of_hippodromes
     dictionary_of_races["Start time"] = list_of_start_times
     dictionary_of_races["Racing name and data"] = list_of_names_data
-    dictionary_of_races["Ratings"] = list_of_ratings
-    dictionary_of_races["Countries"] = list_of_countries
-    dictionary_of_races["Horses"] = list_of_horses
-    dictionary_of_races["Jockeys/Trainers"] = list_of_jockeys_trainers
+    dictionary_of_races["Rating"] = list_of_ratings
+    dictionary_of_races["Country"] = list_of_countries
+    dictionary_of_races["Horse"] = list_of_horses
+    dictionary_of_races["Jockey/Trainer"] = list_of_jockeys_trainers
+    dictionary_of_races["Age"] = list_of_age
 
     # Creating of the frame for the data.
     df_res = pd.DataFrame(dictionary_of_races)

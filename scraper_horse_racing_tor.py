@@ -221,10 +221,29 @@ finally:
                 +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[3]/span')
                 country=country_string.get_attribute("title")
                 list_of_countries.append(country)
-                print(country)
             except:
                 list_of_countries.append("")
+
+    # Scraping of the horse names.
+    for ind in range(1, (len(hippodromes)+1)):
+        list_of_horses.append("")
+        list_of_horses.append("")
+        list_of_horses.append("")
+        # Enumeration of the race participants for the iteration.
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(4, (count_iterations+2)):
+            try:
+                horse = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[3]').text
+                list_of_horses.append(horse)
+                print(horse)
+            except:
+                list_of_horses.append("")
                 print("")
+
 
 
     # Scraping of the additional race data.
@@ -259,22 +278,17 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-# countries (<span class="flag fl_77" title="France"></span>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]  (<div class="container__livetable">)
-# //*[@id="fsbody"]
-# //*[@id="live-table"]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section (<section class="event">)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div (<div class="sportName horse-racing">)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[3]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[3]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[3]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[3]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[3]/span
+# horses (<div class="event__participantName"><span class="flag fl_77" title="France"></span>Adrien Du Pont</div>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[3]
 # ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[3]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[3]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]
+# ...
 
 
     # Add lists with the scraped data to the dictionary in the correct 
@@ -284,6 +298,7 @@ finally:
     dictionary_of_races["Racing name and data"] = list_of_names_data
     dictionary_of_races["Ratings"] = list_of_ratings
     dictionary_of_races["Countries"] = list_of_countries
+    dictionary_of_races["Horses"] = list_of_horses
 
     # Creating of the frame for the data.
     df_res = pd.DataFrame(dictionary_of_races)

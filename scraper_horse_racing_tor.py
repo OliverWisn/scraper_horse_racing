@@ -132,41 +132,41 @@ finally:
             racing_data_1 = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div[2]/span[1]').text
-            string_of_racing_data = (racing_data_1 + "   ")
+            string_of_racing_data = (racing_data_1 + "    ")
         except:
             racing_data_1 = ""
-            string_of_racing_data = (racing_data_1 + "   ")
+            string_of_racing_data = (racing_data_1 + "    ")
         try:
             racing_length = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div[2]/span[2]')
             racing_data_2=racing_length.get_attribute("title")
             string_of_racing_data = string_of_racing_data + (racing_data_2 +\
-             "   ")
+             "    ")
         except:
             racing_data_2 = ""
             string_of_racing_data = string_of_racing_data + (racing_data_2 +\
-             "   ")
+             "    ")
         try:
             racing_data_3 = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div[2]/span[3]').text
             string_of_racing_data = string_of_racing_data + (racing_data_3 +\
-             "   ")
+             "    ")
         except:
             racing_data_3 = ""
             string_of_racing_data = string_of_racing_data + (racing_data_3 +\
-             "   ")
+             "    ")
         try:
             racing_data_4 = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div[2]/span[4]').text
             string_of_racing_data = string_of_racing_data + (racing_data_4 +\
-             "   ")
+             "    ")
         except:
             racing_data_4 = ""
             string_of_racing_data = string_of_racing_data + (racing_data_4 +\
-             "   ")
+             "    ")
         try:
             racing_data_5 = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\

@@ -48,6 +48,7 @@ dictionary_of_races = {}
 list_of_hippodromes = []
 list_of_start_times = []
 list_of_names_data = []
+list_of_ratings = []
 list_of_countries = []
 list_of_horses = []
 list_of_jockeys_trainers = []
@@ -177,6 +178,23 @@ finally:
         for i in range(1, (count_iterations-1)):
             list_of_names_data.append("")
 
+    # Scraping of the ratings.
+    for ind in range(1, (len(hippodromes)+1)):
+        list_of_hippodromes.append("")
+        list_of_hippodromes.append("")
+        list_of_hippodromes.append("")
+        # Enumeration of the race participants for the iteration.
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(1, (count_iterations-1)):
+            rating = driver.find_element(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[2]').text
+            list_of_ratings.append(rating)
+            print(rating)
+
+
     # Scraping of the additional race data.
     # for ind in range(1, (len(hippodromes)+1)):
     #     list_of_racing_data.append("")
@@ -209,39 +227,26 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-# year_groups (<span>7yo+</span>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[2]/span[1]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[1]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[1]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[5]/div[3]/div/div/div[2]/span[1]
-
-# distances (<span title="Miles: 2, Furlongs: 7, Yards: 181">2m 7f 181y</span>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[2]/span[1] see: year_groups
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[2]/span[2]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[2]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[2]
-
-# class (<span>Class: 4</span>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[6]/div[3]/div/div/div[2]/span[3]
-
-# winnings (<span>Winner: 2566.0 GBP</span>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[2]/span[3]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[2]/span[3]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[3]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[3]
-
-# goings (<span>Going: Standard</span>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[2]/span[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[2]/span[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[5]/div[3]/div/div/div[2]/span[4]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[6]/div[3]/div/div/div[2]/span[5]
+# Rating
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[6]/div[2]
+# ...
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[2]
+# ...
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[2]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[2]
+# ...
 
     # Add lists with the scraped data to the dictionary in the correct 
     # order.
     dictionary_of_races["Hippodrome"] = list_of_hippodromes
     dictionary_of_races["Start time"] = list_of_start_times
     dictionary_of_races["Racing name and data"] = list_of_names_data
+    dictionary_of_races["Rating"] = list_of_ratings
 
     # Creating of the frame for the data.
     df_res = pd.DataFrame(dictionary_of_races)

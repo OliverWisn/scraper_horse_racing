@@ -19,11 +19,11 @@ my_url = "https://www.horseracing24.com/"
 
 # Preparing of the Tor browser for the work.
 torexe = os.popen(\
-    r"C:\Users\Oliver\OneDrive\Pulpit\Tor Browser\Browser\firefox.exe")
+    r"C:\Users\Oliver\Desktop\Tor Browser\Browser\firefox.exe")
 #    r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\firefox.exe")
 profile = FirefoxProfile(\
-    r"C:\Users\Oliver\OneDrive\Pulpit\Tor Browser\Browser\TorBrowser\Data"+\
-    "\Browser\profile.default")
+    r"C:\Users\Oliver\Desktop\Tor Browser\Browser\TorBrowser\Data\Browser"+\
+    "\profile.default")
 #   r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\TorBrowser\Data"+\
 #    "\Browser\profile.default")
 profile.set_preference("network.proxy.type", 1)

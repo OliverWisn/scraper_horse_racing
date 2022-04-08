@@ -260,7 +260,7 @@ finally:
             except:
                 list_of_jockeys_trainers.append("")
 
-    # Scraping of the ages.
+    # Scraping of the age.
     for ind in range(1, (len(hippodromes)+1)):
         list_of_age.append("")
         list_of_age.append("")
@@ -275,12 +275,28 @@ finally:
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[5]').text
                 list_of_age.append(age)
-                print(age)
             except:
                 list_of_age.append("")
+
+    # Scraping of the weights.
+    for ind in range(1, (len(hippodromes)+1)):
+        list_of_weights.append("")
+        list_of_weights.append("")
+        list_of_weights.append("")
+        # Enumeration of the race participants for the iteration.
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(4, (count_iterations+2)):
+            try:
+                weight = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[6]').text
+                list_of_weights.append(weight)
+                print(weight)
+            except:
+                list_of_weights.append("")
                 print("")
-
-
 
 
     # Scraping of the additional race data.
@@ -315,16 +331,16 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-# ages (<div class="event__center event__result--age event__result--grey">10</div>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[5]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[5]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[5]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[5]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[5]
+# weights (<div class="event__center event__result--weight event__result--grey">12-6</div>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[6]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[6]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[6]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[6]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[6]
 # ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[5]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[5]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[5]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[6]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[6]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[6]
 # ...
 
 
@@ -338,6 +354,7 @@ finally:
     dictionary_of_races["Horse"] = list_of_horses
     dictionary_of_races["Jockey/Trainer"] = list_of_jockeys_trainers
     dictionary_of_races["Age"] = list_of_age
+    dictionary_of_races["Weight"] = list_of_weights
 
     # Creating of the frame for the data.
     df_res = pd.DataFrame(dictionary_of_races)

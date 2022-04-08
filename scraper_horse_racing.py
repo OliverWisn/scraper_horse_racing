@@ -19,10 +19,13 @@ my_url = "https://www.horseracing24.com/"
 
 # Preparing of the Tor browser for the work.
 torexe = os.popen(\
-    r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\firefox.exe")
+    r"C:\Users\Oliver\OneDrive\Pulpit\Tor Browser\Browser\firefox.exe")
+#    r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\firefox.exe")
 profile = FirefoxProfile(\
-    r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\TorBrowser\Data"+\
+    r"C:\Users\Oliver\OneDrive\Pulpit\Tor Browser\Browser\TorBrowser\Data"+\
     "\Browser\profile.default")
+#   r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\TorBrowser\Data"+\
+#    "\Browser\profile.default")
 profile.set_preference("network.proxy.type", 1)
 profile.set_preference("network.proxy.socks", "127.0.0.1")
 profile.set_preference("network.proxy.socks_port", 9150)
@@ -187,12 +190,16 @@ finally:
         count_iterations = len(driver.find_elements(By.XPATH ,\
              '//div[@class="container__livetable"]/div[2]/div/section/div['\
              +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
-        for i in range(1, (count_iterations-1)):
-            rating = driver.find_element(By.XPATH ,\
-             '//div[@class="container__livetable"]/div[2]/div/section/div['\
-             +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[2]').text
-            list_of_ratings.append(rating)
-            print(rating)
+        for i in range(4, (count_iterations+2)):
+            try:
+                rating = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[2]').text
+                list_of_ratings.append(rating)
+                print(rating)
+            except:
+                list_of_ratings.append("")
+                print("")
 
 
     # Scraping of the additional race data.

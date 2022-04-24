@@ -331,6 +331,8 @@ finally:
                 +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[8]/span')
                 bet_comment_1 = comment.get_attribute("class")
                 bet_comment_2 = comment.get_attribute("alt")
+                text_in_one_row = bet_comment_2.split()
+                bet_comment_2 = " ".join(text_in_one_row)
                 bet_comment_2 = bet_comment_2.replace("[d]", " » ")
                 bet_comment_2 = bet_comment_2.replace("[u]", " » ")
                 string_of_comments = bet_comment_1 + "    " + bet_comment_2
@@ -391,6 +393,7 @@ finally:
     dictionary_of_races["Age"] = list_of_age
     dictionary_of_races["Weight"] = list_of_weights
     dictionary_of_races["Traveled distance"] = list_of_traveled_distances
+#    dictionary_of_races["Bet comment"] = list_of_bet_comments
 
     # Creating of the frame for the data.
     df_res = pd.DataFrame(dictionary_of_races)

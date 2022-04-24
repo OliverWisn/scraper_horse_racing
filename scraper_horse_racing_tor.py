@@ -19,19 +19,19 @@ my_url = "https://www.horseracing24.com/"
 
 # Preparing of the Tor browser for the work.
 # for my laptop
-torexe = os.popen(\
-    r"C:\Users\Oliver\Desktop\Tor Browser\Browser\firefox.exe")
-# for my mainframe
 # torexe = os.popen(\
-#    r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\firefox.exe")
-# for my laptop
-profile = FirefoxProfile(\
-    r"C:\Users\Oliver\Desktop\Tor Browser\Browser\TorBrowser\Data\Browser"+\
-    "\profile.default")
+#    r"C:\Users\Oliver\Desktop\Tor Browser\Browser\firefox.exe")
 # for my mainframe
+torexe = os.popen(\
+    r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\firefox.exe")
+# for my laptop
 # profile = FirefoxProfile(\
-#   r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\TorBrowser\Data"+\
-#    "\Browser\profile.default")
+#     r"C:\Users\Oliver\Desktop\Tor Browser\Browser\TorBrowser\Data\Browser"+\
+#     "\profile.default")
+# for my mainframe
+profile = FirefoxProfile(\
+    r"C:\Users\olive\OneDrive\Pulpit\Tor Browser\Browser\TorBrowser\Data"+\
+    "\Browser\profile.default")
 profile.set_preference("network.proxy.type", 1)
 profile.set_preference("network.proxy.socks", "127.0.0.1")
 profile.set_preference("network.proxy.socks_port", 9150)

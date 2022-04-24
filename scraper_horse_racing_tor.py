@@ -293,9 +293,27 @@ finally:
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[6]').text
                 list_of_weights.append(weight)
-                print(weight)
             except:
                 list_of_weights.append("")
+
+    # Scraping of the traveled_distances.
+    for ind in range(1, (len(hippodromes)+1)):
+        list_of_traveled_distances.append("")
+        list_of_traveled_distances.append("")
+        list_of_traveled_distances.append("")
+        # Enumeration of the race participants for the iteration.
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(4, (count_iterations+2)):
+            try:
+                traveled_distance = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[7]').text
+                list_of_traveled_distances.append(traveled_distance)
+                print(traveled_distance)
+            except:
+                list_of_traveled_distances.append("")
                 print("")
 
 
@@ -331,16 +349,16 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-# weights (<div class="event__center event__result--weight event__result--grey">12-6</div>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[6]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[6]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[6]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[6]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[6]
+# traveled_distances (<div class="event__center event__result--distance">29</div>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[7]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[7]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[7]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[7]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[7]
 # ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[6]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[6]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[6]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[7]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[7]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[7]
 # ...
 
 

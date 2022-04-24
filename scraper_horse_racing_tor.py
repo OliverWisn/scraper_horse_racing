@@ -64,6 +64,7 @@ list_of_jockeys_trainers = []
 list_of_age = []
 list_of_weights = []
 list_of_traveled_distances = []
+list_of_bet_comments = []
 list_of_each_way_bets = []
 list_of_winners = []
 
@@ -140,7 +141,7 @@ finally:
             racing_length = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div[2]/span[2]')
-            racing_data_2=racing_length.get_attribute("title")
+            racing_data_2 = racing_length.get_attribute("title")
             string_of_racing_data = string_of_racing_data + (racing_data_2 +\
              "    ")
         except:
@@ -311,25 +312,35 @@ finally:
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[7]').text
                 list_of_traveled_distances.append(traveled_distance)
-                print(traveled_distance)
             except:
                 list_of_traveled_distances.append("")
+
+    # Scraping of the comments about the each way bets.
+    for ind in range(1, (len(hippodromes)+1)):
+        list_of_bet_comments.append("")
+        list_of_bet_comments.append("")
+        list_of_bet_comments.append("")
+        # Enumeration of the race participants for the iteration.
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(4, (count_iterations+2)):
+            try:
+                comment = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[8]/span')
+                bet_comment_1 = comment.get_attribute("class")
+                bet_comment_2 = comment.get_attribute("alt")
+                bet_comment_2 = bet_comment_2.replace("[d]", " » ")
+                bet_comment_2 = bet_comment_2.replace("[u]", " » ")
+                string_of_comments = bet_comment_1 + "    " + bet_comment_2
+                list_of_bet_comments.append(string_of_comments)
+                print(string_of_comments)
+            except:
+                list_of_bet_comments.append("")
                 print("")
 
 
-    # Scraping of the additional race data.
-    # for ind in range(1, (len(hippodromes)+1)):
-    #     list_of_racing_data.append("")
-        
-
-
-        # list_of_racing_names.append(racing_name)
-        # list_of_racing_names.append("")
-        # count_iterations = len(driver.find_elements(By.XPATH ,\
-        #      '//div[@class="container__livetable"]/div[2]/div/section/div['\
-        #      +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
-        # for i in range(1, (count_iterations-1)):
-        #     list_of_racing_names.append("")
 
 # countries (<span class="flag fl_77" title="France"></span>)
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]  (<div class="container__livetable">)
@@ -349,16 +360,22 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-# traveled_distances (<div class="event__center event__result--distance">29</div>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[7]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[7]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[7]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[7]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[7]
+# each_way_bets (<span class="down" alt="17.00[d]7.50">7.50</span>)
+# (<span class="up" alt="2.25[u]2.62">2.62</span>)
+# (<span class="" alt="13.00">13.00</span>)
+# (<span class="up not-published" alt="15.00[u]17.00 Odds removed by bookmaker.">17.00</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[4]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[5]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[6]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[13]/div[8]/span
 # ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[7]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[7]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[7]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[8]/div[3]/div/div/div[4]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[8]/div[3]/div/div/div[5]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[8]/div[3]/div/div/div[6]/div[8]/span
+# ...
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[4]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[5]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[6]/div[8]/span
 # ...
 
 
@@ -545,6 +562,24 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[7]
 # ...
 
+
+# each_way_bets (<span class="down" alt="17.00[d]7.50">7.50</span>)
+# (<span class="up" alt="2.25[u]2.62">2.62</span>)
+# (<span class="" alt="13.00">13.00</span>)
+# (<span class="up not-published" alt="15.00[u]17.00 Odds removed by bookmaker.">17.00</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[4]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[5]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[6]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[13]/div[8]/span
+# ...
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[8]/div[3]/div/div/div[4]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[8]/div[3]/div/div/div[5]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[8]/div[3]/div/div/div[6]/div[8]/span
+# ...
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[4]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[5]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[6]/div[8]/span
+# ...
 
 # each_way_bets (<div class="event__odd--odd1 kx no-odds no-odds--each_way null null odds__odd icon icon--arrow">-</div>)
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[8]

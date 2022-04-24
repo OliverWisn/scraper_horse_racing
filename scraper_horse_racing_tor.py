@@ -393,7 +393,7 @@ finally:
     dictionary_of_races["Age"] = list_of_age
     dictionary_of_races["Weight"] = list_of_weights
     dictionary_of_races["Traveled distance"] = list_of_traveled_distances
-#    dictionary_of_races["Bet comment"] = list_of_bet_comments
+    dictionary_of_races["Bet comment"] = list_of_bet_comments
 
     # Creating of the frame for the data.
     df_res = pd.DataFrame(dictionary_of_races)

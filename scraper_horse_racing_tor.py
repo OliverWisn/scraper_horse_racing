@@ -469,6 +469,7 @@ finally:
     dictionary_of_races["Traveled distance"] = list_of_traveled_distances
     dictionary_of_races["Bet comment"] = list_of_bet_comments
     dictionary_of_races["Each way bet"] = list_of_each_way_bets
+    dictionary_of_races["Winner comment"] = list_of_winner_comments
 
     # Creating of the frame for the data.
     df_res = pd.DataFrame(dictionary_of_races)

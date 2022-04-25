@@ -172,12 +172,23 @@ finally:
             racing_data_5 = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div[2]/span[5]').text
-            string_of_racing_data = string_of_racing_data + racing_data_5
+            string_of_racing_data = string_of_racing_data + (racing_data_5 +\
+             "        ")
+        except:
+            racing_data_5 = ""
+            string_of_racing_data = string_of_racing_data + (racing_data_5 +\
+             "        ")
+        # Scraping of the status data (e.g. Finished).
+        try:
+            racing_data_6 = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div[1]/div[3]').text
+            string_of_racing_data = string_of_racing_data + racing_data_6
             string_of_racing_data.strip()
             list_of_names_data.append(string_of_racing_data)
         except:
-            racing_data_5 = ""
-            string_of_racing_data = string_of_racing_data + racing_data_5
+            racing_data_6 = ""
+            string_of_racing_data = string_of_racing_data + racing_data_6
             string_of_racing_data.strip()
             list_of_names_data.append(string_of_racing_data)
         # Inserting of the empty fields as many as participants in 
@@ -374,23 +385,17 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-# each_way_bets (<span class="down" alt="17.00[d]7.50">7.50</span>)
-# (<span class="up" alt="2.25[u]2.62">2.62</span>)
-# (<span class="" alt="13.00">13.00</span>)
-# (<span class="up not-published" alt="15.00[u]17.00 Odds removed by bookmaker.">17.00</span>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[4]/div[8]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[5]/div[8]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[6]/div[8]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[7]/div[3]/div/div/div[13]/div[8]/span
+# status_data (<div class="event__startTime">Start time: 25.04. 17:20</div>)
+# (<div class="event__startTime">Finished</div>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[1]/div[3]
 # ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[8]/div[3]/div/div/div[4]/div[8]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[8]/div[3]/div/div/div[5]/div[8]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[8]/div[3]/div/div/div[6]/div[8]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[13]/div[3]/div/div/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[14]/div[3]/div/div/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[15]/div[3]/div/div/div[1]/div[3]
 # ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[4]/div[8]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[5]/div[8]/span
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[6]/div[8]/span
-# ...
+
 
 
     # Add lists with the scraped data to the dictionary in the correct 
@@ -473,6 +478,17 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[4]/div[3]/div/div/div[2]/span[4]
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[5]/div[3]/div/div/div[2]/span[4]
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[6]/div[3]/div/div/div[2]/span[5]
+
+# status_data (<div class="event__startTime">Start time: 25.04. 17:20</div>)
+# (<div class="event__startTime">Finished</div>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[1]/div[3]
+# ...
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[13]/div[3]/div/div/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[14]/div[3]/div/div/div[1]/div[3]
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[15]/div[3]/div/div/div[1]/div[3]
+# ...
 
 
 
@@ -594,18 +610,6 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[4]/div[8]/span
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[5]/div[8]/span
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[6]/div[8]/span
-# ...
-
-# each_way_bets (<div class="event__odd--odd1 kx no-odds no-odds--each_way null null odds__odd icon icon--arrow">-</div>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[8]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[8]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[8]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[8]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[8]
-# ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[8]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[8]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[8]
 # ...
 
 

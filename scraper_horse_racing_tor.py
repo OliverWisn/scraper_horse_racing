@@ -325,23 +325,35 @@ finally:
              '//div[@class="container__livetable"]/div[2]/div/section/div['\
              +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
         for i in range(4, (count_iterations+2)):
+            # Scraping of the comments about the each way bets.
             try:
                 comment = driver.find_element(By.XPATH ,\
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[8]/span')
                 bet_comment_1 = comment.get_attribute("class")
+                string_of_comments = (bet_comment_1 + "    ")
+            except:
+                bet_comment_1 = ""
+                string_of_comments = (bet_comment_1 + "    ")
+            try:
+                comment = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[8]/span')
                 bet_comment_2 = comment.get_attribute("alt")
                 text_in_one_row = bet_comment_2.split()
                 bet_comment_2 = " ".join(text_in_one_row)
                 bet_comment_2 = bet_comment_2.replace("[d]", " » ")
                 bet_comment_2 = bet_comment_2.replace("[u]", " » ")
-                string_of_comments = bet_comment_1 + "    " + bet_comment_2
+                string_of_comments = string_of_comments + bet_comment_2
+                string_of_racing_data.strip()
                 list_of_bet_comments.append(string_of_comments)
                 print(string_of_comments)
             except:
-                list_of_bet_comments.append("")
-                print("")
-
+                bet_comment_2 = ""
+                string_of_comments = string_of_comments + bet_comment_2
+                string_of_racing_data.strip()
+                list_of_bet_comments.append(string_of_comments)
+                print(string_of_comments)
 
 
 # countries (<span class="flag fl_77" title="France"></span>)

@@ -66,6 +66,7 @@ list_of_weights = []
 list_of_traveled_distances = []
 list_of_bet_comments = []
 list_of_each_way_bets = []
+list_of_winner_comments = []
 list_of_winners = []
 
 # Wait for page to fully render
@@ -356,12 +357,12 @@ finally:
                 bet_comment_2 = bet_comment_2.replace("[d]", " » ")
                 bet_comment_2 = bet_comment_2.replace("[u]", " » ")
                 string_of_comments = string_of_comments + bet_comment_2
-                string_of_racing_data.strip()
+                string_of_comments.strip()
                 list_of_bet_comments.append(string_of_comments)
             except:
                 bet_comment_2 = ""
                 string_of_comments = string_of_comments + bet_comment_2
-                string_of_racing_data.strip()
+                string_of_comments.strip()
                 list_of_bet_comments.append(string_of_comments)
 
     # Scraping of the each way bets.
@@ -379,10 +380,50 @@ finally:
                 '//div[@class="container__livetable"]/div[2]/div/section/div['\
                 +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[8]/span').text
                 list_of_each_way_bets.append(each_way_bet)
-                print(each_way_bet)
             except:
                 list_of_each_way_bets.append("")
-                print("")
+
+    # Scraping of the comments about the winners.
+    for ind in range(1, (len(hippodromes)+1)):
+        list_of_winner_comments.append("")
+        list_of_winner_comments.append("")
+        list_of_winner_comments.append("")
+        # Enumeration of the race participants for the iteration.
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(4, (count_iterations+2)):
+            # Scraping of the comments about the winners.
+            try:
+                comment = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[9]/span')
+                winner_comment_1 = comment.get_attribute("class")
+                string_of_winner_comments = (winner_comment_1 + "    ")
+            except:
+                winner_comment_1 = ""
+                string_of_winner_comments = (winner_comment_1 + "    ")
+            try:
+                comment = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[9]/span')
+                winner_comment_2 = comment.get_attribute("alt")
+                winner_text_in_one_row = winner_comment_2.split()
+                winner_comment_2 = " ".join(winner_text_in_one_row)
+                winner_comment_2 = winner_comment_2.replace("[d]", " » ")
+                winner_comment_2 = winner_comment_2.replace("[u]", " » ")
+                string_of_winner_comments = string_of_winner_comments +\
+                 winner_comment_2
+                string_of_winner_comments.strip()
+                list_of_winner_comments.append(string_of_winner_comments)
+                print(string_of_winner_comments)
+            except:
+                winner_comment_2 = ""
+                string_of_winner_comments = string_of_winner_comments +\
+                 winner_comment_2
+                string_of_winner_comments.strip()
+                list_of_winner_comments.append(string_of_winner_comments)
+                print(string_of_winner_comments)
 
 
 # countries (<span class="flag fl_77" title="France"></span>)
@@ -403,15 +444,13 @@ finally:
 # /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[3]/span
 
 
-# status_data (<div class="event__startTime">Start time: 25.04. 17:20</div>)
-# (<div class="event__startTime">Finished</div>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[1]/div[3]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[1]/div[3]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[1]/div[3]
-# ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[13]/div[3]/div/div/div[1]/div[3]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[14]/div[3]/div/div/div[1]/div[3]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[15]/div[3]/div/div/div[1]/div[3]
+# winners (<span class="" alt="8.00">8.00</span>)
+# (<span class="down" alt="2.37[d]2.20">2.20</span>)
+# (<span class="" alt="3.00">3.00</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[4]/div[9]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[5]/div[9]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[6]/div[9]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[7]/div[9]/span
 # ...
 
 
@@ -632,14 +671,12 @@ finally:
 # ...
 
 
-# winners (<div class="event__odd--odd2 kx no-odds no-odds--winner null null odds__odd icon icon--arrow">-</div>)
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[4]/div[9]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[1]/div[3]/div/div/div[5]/div[9]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[4]/div[9]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[5]/div[9]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[2]/div[3]/div/div/div[6]/div[9]
+# winners (<span class="" alt="8.00">8.00</span>)
+# (<span class="down" alt="2.37[d]2.20">2.20</span>)
+# (<span class="" alt="3.00">3.00</span>)
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[4]/div[9]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[5]/div[9]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[6]/div[9]/span
+# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[9]/div[3]/div/div/div[7]/div[9]/span
 # ...
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[4]/div[9]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[5]/div[9]
-# /html/body/div[5]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div/section/div[3]/div[3]/div/div/div[6]/div[9]
-# ...
+

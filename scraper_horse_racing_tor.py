@@ -416,14 +416,33 @@ finally:
                  winner_comment_2
                 string_of_winner_comments.strip()
                 list_of_winner_comments.append(string_of_winner_comments)
-                print(string_of_winner_comments)
             except:
                 winner_comment_2 = ""
                 string_of_winner_comments = string_of_winner_comments +\
                  winner_comment_2
                 string_of_winner_comments.strip()
                 list_of_winner_comments.append(string_of_winner_comments)
-                print(string_of_winner_comments)
+
+    # Scraping of the winners.
+    for ind in range(1, (len(hippodromes)+1)):
+        list_of_winners.append("")
+        list_of_winners.append("")
+        list_of_winners.append("")
+        # Enumeration of the race participants for the iteration.
+        count_iterations = len(driver.find_elements(By.XPATH ,\
+             '//div[@class="container__livetable"]/div[2]/div/section/div['\
+             +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+        for i in range(4, (count_iterations+2)):
+            try:
+                winner = driver.find_element(By.XPATH ,\
+                '//div[@class="container__livetable"]/div[2]/div/section/div['\
+                +str(ind)+']/div[3]/div/div/div['+str(i)+']/div[9]/span').text
+                list_of_winners.append(winner)
+                print(winner)
+            except:
+                list_of_winners.append("")
+                print("")
+
 
 
 # countries (<span class="flag fl_77" title="France"></span>)

@@ -1,4 +1,4 @@
-# scraper_horse_racing.py
+# scraper_horse_racing_tor.py
 # -*- coding: utf-8 -*-
 
 import os

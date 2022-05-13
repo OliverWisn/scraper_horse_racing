@@ -18,7 +18,15 @@ Scraping of the website.
 - To run the script you must run the file 
   "scraper_horse_racing_tor.py". 
 - The scraper only scrapes the data from the main page 
-  https://www.horseracing24.com/
+  https://www.horseracing24.com/  .
+- While the script is running, two tor browser windows are opened. 
+  The first is with the tor network open browser. The second one 
+  downloads the scraped website. The script itself closes the window 
+  with the scrapped website, but does not close the first window by 
+  itself. The first window must be closed manually to complete 
+  the script execution.
+- In the future I will write a second script in the functioning style 
+  without using the tor network.
 
 ## Script Summary:
 After you run the script, you must wait for the programm to finish. In 
@@ -27,6 +35,8 @@ will appear, e.g. "horseracing20220111-10.27.30". In the file
 horseracing20220111-10.27.30.csv the exact date and time of the scraping 
 is saved in the name. When you load the data from the csv file into 
 Excel 2019, the following data layout appears:
+
+<img src="https://github.com/OliverWisn/scraper_horse_racing/blob/master/image/demo_1.jpg" width=1000>
 
 ## Version:
 This is version 1.00 of the scraper.

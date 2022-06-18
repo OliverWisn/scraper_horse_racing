@@ -1,4 +1,4 @@
-# scraper_horse_racing_tor.py
+# scraper_horse_racing.py
 # -*- coding: utf-8 -*-
 
 import os
@@ -15,10 +15,10 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 def firefoxdriver(my_url):
-    '''
+    """
     Preparing of the Tor browser for the work and adding the headers 
     to the browser.
-    '''
+    """
     # Preparing of the Tor browser for the work.
     # for my laptop
     # torexe = os.popen(\
@@ -48,12 +48,34 @@ def firefoxdriver(my_url):
     return driver
 
 def _addingheaders(my_url):
-    '''Adding the headers to the browser.'''
+    """Adding the headers to the browser."""
     session = requests.Session()
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64;'+
     ' rv:97.0) Gecko/20100101 Firefox/97.0', 'Accept': 'text/html,application'+
     '/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'}
     req = session.get(my_url, headers=headers)
+
+def scrapingitems(driver, hippodromes, my_list, end_xpath):
+        """
+        Create appropriate lists from the data for the pandas library.
+        """
+        for ind in range(1, (len(hippodromes)+1)):
+            my_list.append('')
+            my_list.append('')
+            my_list.append('')
+            # Enumeration of the race participants for the iteration.
+            count_iterations = len(driver.find_elements(By.XPATH,
+                '//div[@class="container__livetable"]/div[2]/div/section/div['
+                +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+            for i in range(4, (count_iterations+2)):
+                try:
+                    my_elements_to_scrap = driver.find_element(By.XPATH,
+                        '//div[@class="container__livetable"]/div[2]/div/'+
+                        'section/div['+str(ind)+']/div[3]/div/div/div['+str(i)
+                        +end_xpath).text
+                    my_list.append(my_elements_to_scrap)
+                except:
+                    my_list.append('')
 
 # Variable with the URL of the website.
 my_url = 'https://www.horseracing24.com/'
@@ -211,23 +233,25 @@ finally:
             list_of_names_data.append('')
 
     # Scraping of the ratings.
-    for ind in range(1, (len(hippodromes)+1)):
-        list_of_ratings.append('')
-        list_of_ratings.append('')
-        list_of_ratings.append('')
-        # Enumeration of the race participants for the iteration.
-        count_iterations = len(driver.find_elements(By.XPATH,
-            '//div[@class="container__livetable"]/div[2]/div/section/div['
-            +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
-        for i in range(4, (count_iterations+2)):
-            try:
-                rating = driver.find_element(By.XPATH,
-                    '//div[@class="container__livetable"]/div[2]/div/section/'
-                    +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
-                    +'[2]').text
-                list_of_ratings.append(rating)
-            except:
-                list_of_ratings.append('')
+    end_xpath_ratings = ']/div[2]'
+    scrapingitems(driver, hippodromes, list_of_ratings, end_xpath_ratings)
+    # for ind in range(1, (len(hippodromes)+1)):
+    #     list_of_ratings.append('')
+    #     list_of_ratings.append('')
+    #     list_of_ratings.append('')
+    #     # Enumeration of the race participants for the iteration.
+    #     count_iterations = len(driver.find_elements(By.XPATH,
+    #         '//div[@class="container__livetable"]/div[2]/div/section/div['
+    #         +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+    #     for i in range(4, (count_iterations+2)):
+    #         try:
+    #             rating = driver.find_element(By.XPATH,
+    #                 '//div[@class="container__livetable"]/div[2]/div/section/'
+    #                 +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
+    #                 +'[2]').text
+    #             list_of_ratings.append(rating)
+    #         except:
+    #             list_of_ratings.append('')
 
     # Scraping of the countries.
     for ind in range(1, (len(hippodromes)+1)):
@@ -250,23 +274,25 @@ finally:
                 list_of_countries.append('')
 
     # Scraping of the horse names.
-    for ind in range(1, (len(hippodromes)+1)):
-        list_of_horses.append('')
-        list_of_horses.append('')
-        list_of_horses.append('')
-        # Enumeration of the race participants for the iteration.
-        count_iterations = len(driver.find_elements(By.XPATH,
-            '//div[@class="container__livetable"]/div[2]/div/section/div['
-            +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
-        for i in range(4, (count_iterations+2)):
-            try:
-                horse = driver.find_element(By.XPATH,
-                    '//div[@class="container__livetable"]/div[2]/div/section/'
-                    +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
-                    +'[3]').text
-                list_of_horses.append(horse)
-            except:
-                list_of_horses.append('')
+    end_xpath_horses = ']/div[3]'
+    scrapingitems(driver, hippodromes, list_of_horses, end_xpath_horses)
+    # for ind in range(1, (len(hippodromes)+1)):
+    #     list_of_horses.append('')
+    #     list_of_horses.append('')
+    #     list_of_horses.append('')
+    #     # Enumeration of the race participants for the iteration.
+    #     count_iterations = len(driver.find_elements(By.XPATH,
+    #         '//div[@class="container__livetable"]/div[2]/div/section/div['
+    #         +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+    #     for i in range(4, (count_iterations+2)):
+    #         try:
+    #             horse = driver.find_element(By.XPATH,
+    #                 '//div[@class="container__livetable"]/div[2]/div/section/'
+    #                 +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
+    #                 +'[3]').text
+    #             list_of_horses.append(horse)
+    #         except:
+    #             list_of_horses.append('')
 
     # Scraping of the names of the jockeys and the trainers.
     for ind in range(1, (len(hippodromes)+1)):

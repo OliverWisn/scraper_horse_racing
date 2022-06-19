@@ -10,6 +10,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -74,7 +75,11 @@ try:
     element = WebDriverWait(driver, 120).until(
         EC.presence_of_element_located((By.CLASS_NAME,
         'boxOverContent__bannerLink')))
-finally:
+except TimeoutException:
+    print("Loading took too much time!. Please rerun the script.")
+except Exception as e:
+    print(str(e))
+else:
     # Loads the website code as the BeautifulSoup object.
     pageSource = driver.page_source
     bsObj = BeautifulSoup(pageSource, 'lxml')
@@ -475,5 +480,5 @@ finally:
         "%Y%m%d-%H.%M.%S"))
     df_res.to_csv(name_of_file(), encoding="utf-8")
 
-
+finally:
     driver.quit()

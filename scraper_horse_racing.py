@@ -299,80 +299,90 @@ else:
     #             horses.append('')
 
     # Scraping of the names of the jockeys and the trainers.
-    for ind in range(1, (len(hippodromes)+1)):
-        jockeys_trainers.append('')
-        jockeys_trainers.append('')
-        jockeys_trainers.append('')
-        # Enumeration of the race participants for the iteration.
-        count_iterations = len(driver.find_elements(By.XPATH,
-            '//div[@class="container__livetable"]/div[2]/div/section/div['
-            +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
-        for i in range(4, (count_iterations+2)):
-            try:
-                jockey_trainer = driver.find_element(By.XPATH,
-                    '//div[@class="container__livetable"]/div[2]/div/section/'
-                    +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
-                    +'[4]').text
-                jockeys_trainers.append(jockey_trainer)
-            except:
-                jockeys_trainers.append('')
+    end_xpath_jockeys_trainers = ']/div[4]'
+    scrapingitems(driver, hippodromes, jockeys_trainers, 
+        end_xpath_jockeys_trainers)
+    # for ind in range(1, (len(hippodromes)+1)):
+    #     jockeys_trainers.append('')
+    #     jockeys_trainers.append('')
+    #     jockeys_trainers.append('')
+    #     # Enumeration of the race participants for the iteration.
+    #     count_iterations = len(driver.find_elements(By.XPATH,
+    #         '//div[@class="container__livetable"]/div[2]/div/section/div['
+    #         +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+    #     for i in range(4, (count_iterations+2)):
+    #         try:
+    #             jockey_trainer = driver.find_element(By.XPATH,
+    #                 '//div[@class="container__livetable"]/div[2]/div/section/'
+    #                 +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
+    #                 +'[4]').text
+    #             jockeys_trainers.append(jockey_trainer)
+    #         except:
+    #             jockeys_trainers.append('')
 
     # Scraping of the age.
-    for ind in range(1, (len(hippodromes)+1)):
-        lst_age.append('')
-        lst_age.append('')
-        lst_age.append('')
-        # Enumeration of the race participants for the iteration.
-        count_iterations = len(driver.find_elements(By.XPATH,
-            '//div[@class="container__livetable"]/div[2]/div/section/div['
-            +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
-        for i in range(4, (count_iterations+2)):
-            try:
-                age = driver.find_element(By.XPATH,
-                    '//div[@class="container__livetable"]/div[2]/div/section/'
-                    +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
-                    +'[5]').text
-                lst_age.append(age)
-            except:
-                lst_age.append('')
+    end_xpath_age = ']/div[5]'
+    scrapingitems(driver, hippodromes, lst_age, end_xpath_age)
+    # for ind in range(1, (len(hippodromes)+1)):
+    #     lst_age.append('')
+    #     lst_age.append('')
+    #     lst_age.append('')
+    #     # Enumeration of the race participants for the iteration.
+    #     count_iterations = len(driver.find_elements(By.XPATH,
+    #         '//div[@class="container__livetable"]/div[2]/div/section/div['
+    #         +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+    #     for i in range(4, (count_iterations+2)):
+    #         try:
+    #             age = driver.find_element(By.XPATH,
+    #                 '//div[@class="container__livetable"]/div[2]/div/section/'
+    #                 +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
+    #                 +'[5]').text
+    #             lst_age.append(age)
+    #         except:
+    #             lst_age.append('')
 
     # Scraping of the weights.
-    for ind in range(1, (len(hippodromes)+1)):
-        weights.append('')
-        weights.append('')
-        weights.append('')
-        # Enumeration of the race participants for the iteration.
-        count_iterations = len(driver.find_elements(By.XPATH,
-            '//div[@class="container__livetable"]/div[2]/div/section/div['
-            +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
-        for i in range(4, (count_iterations+2)):
-            try:
-                weight = driver.find_element(By.XPATH,
-                    '//div[@class="container__livetable"]/div[2]/div/section/'
-                    +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
-                    +'[6]').text
-                weights.append(weight)
-            except:
-                weights.append('')
+    end_xpath_weights = ']/div[6]'
+    scrapingitems(driver, hippodromes, weights, end_xpath_weights)
+    # for ind in range(1, (len(hippodromes)+1)):
+    #     weights.append('')
+    #     weights.append('')
+    #     weights.append('')
+    #     # Enumeration of the race participants for the iteration.
+    #     count_iterations = len(driver.find_elements(By.XPATH,
+    #         '//div[@class="container__livetable"]/div[2]/div/section/div['
+    #         +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+    #     for i in range(4, (count_iterations+2)):
+    #         try:
+    #             weight = driver.find_element(By.XPATH,
+    #                 '//div[@class="container__livetable"]/div[2]/div/section/'
+    #                 +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
+    #                 +'[6]').text
+    #             weights.append(weight)
+    #         except:
+    #             weights.append('')
 
     # Scraping of the traveled distances.
-    for ind in range(1, (len(hippodromes)+1)):
-        traveled_distances.append('')
-        traveled_distances.append('')
-        traveled_distances.append('')
-        # Enumeration of the race participants for the iteration.
-        count_iterations = len(driver.find_elements(By.XPATH,
-            '//div[@class="container__livetable"]/div[2]/div/section/div['
-            +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
-        for i in range(4, (count_iterations+2)):
-            try:
-                traveled_distance = driver.find_element(By.XPATH,
-                    '//div[@class="container__livetable"]/div[2]/div/section/'
-                    +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
-                    +'[7]').text
-                traveled_distances.append(traveled_distance)
-            except:
-                traveled_distances.append('')
+    end_xpath_traveled_distances = ']/div[7]'
+    scrapingitems(driver, hippodromes, traveled_distances, 
+        end_xpath_traveled_distances)
+    # for ind in range(1, (len(hippodromes)+1)):
+    #     traveled_distances.append('')
+    #     traveled_distances.append('')
+    #     traveled_distances.append('')
+    #     # Enumeration of the race participants for the iteration.
+    #     count_iterations = len(driver.find_elements(By.XPATH,
+    #         '//div[@class="container__livetable"]/div[2]/div/section/div['
+    #         +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+    #     for i in range(4, (count_iterations+2)):
+    #         try:
+    #             traveled_distance = driver.find_element(By.XPATH,
+    #                 '//div[@class="container__livetable"]/div[2]/div/section/'
+    #                 +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
+    #                 +'[7]').text
+    #             traveled_distances.append(traveled_distance)
+    #         except:
+    #             traveled_distances.append('')
 
     # Scraping of the comments about the each way bets.
     for ind in range(1, (len(hippodromes)+1)):
@@ -391,10 +401,10 @@ else:
                     +'div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div'
                     +'[8]/span')
                 bet_comment_1 = comment.get_attribute("class")
-                string_of_comments = (bet_comment_1 + '    ')
+                str_comments = (bet_comment_1 + '    ')
             except:
                 bet_comment_1 = ''
-                string_of_comments = (bet_comment_1 + '    ')
+                str_comments = (bet_comment_1 + '    ')
             try:
                 comment = driver.find_element(By.XPATH,
                     '//div[@class="container__livetable"]/div[2]/div/section/'
@@ -405,14 +415,14 @@ else:
                 bet_comment_2 = " ".join(text_in_one_row)
                 bet_comment_2 = bet_comment_2.replace('[d]', ' » ')
                 bet_comment_2 = bet_comment_2.replace('[u]', ' » ')
-                string_of_comments = string_of_comments + bet_comment_2
-                string_of_comments.strip()
-                bet_comments.append(string_of_comments)
+                str_comments = str_comments + bet_comment_2
+                str_comments.strip()
+                bet_comments.append(str_comments)
             except:
                 bet_comment_2 = ''
-                string_of_comments = string_of_comments + bet_comment_2
-                string_of_comments.strip()
-                bet_comments.append(string_of_comments)
+                str_comments = str_comments + bet_comment_2
+                str_comments.strip()
+                bet_comments.append(str_comments)
 
     # Scraping of the each way bets.
     for ind in range(1, (len(hippodromes)+1)):

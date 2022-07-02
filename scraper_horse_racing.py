@@ -57,6 +57,26 @@ def scrapingitems(driver, hippodromes, my_list, end_xpath):
                 except:
                     my_list.append('')
 
+def scrapingitemstest(driver, hippodromes, my_list, full_xpath):
+        """
+        Create appropriate lists of the data for the pandas library.
+        """
+        for ind in range(1, (len(hippodromes)+1)):
+            my_list.append('')
+            my_list.append('')
+            my_list.append('')
+            # Enumeration of the race participants for the iteration.
+            count_iterations = len(driver.find_elements(By.XPATH,
+                '//div[@class="container__livetable"]/div[2]/div/section/div['
+                +str(ind)+']/div[3]/div/div/div[*]/div[3]'))
+            for i in range(4, (count_iterations+2)):
+                try:
+                    my_elements_to_scrap = driver.find_element(By.XPATH, 
+                        full_xpath).text
+                    my_list.append(my_elements_to_scrap)
+                except:
+                    my_list.append('')
+
 # Variable with the URL of the website.
 my_url = 'https://www.horseracing24.com/'
 
@@ -241,8 +261,10 @@ else:
                 countries.append('')
 
     # Scraping of the horse names.
-    end_xpath_horses = ']/div[3]'
-    scrapingitems(driver, hippodromes, horses, end_xpath_horses)
+    xpath_horses = '//div[@class="container__livetable"]/div[2]/div/section/div['+str(ind)+']/div[3]/div/div/div['+str(i)+']/div[3]'
+    scrapingitemstest(driver, hippodromes, horses, xpath_horses)
+    # end_xpath_horses = ']/div[3]'
+    # scrapingitems(driver, hippodromes, horses, end_xpath_horses)
 
     # Scraping of the names of the jockeys and the trainers.
     end_xpath_jockeys_trainers = ']/div[4]'
